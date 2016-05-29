@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Predictive Word App</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Predictive Word App">
+  <meta name="author" content="Hieu Duy Nguyen (Hill)">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="libraries/widgets/nvd3/css/nv.d3.css"></link>
+<link rel=stylesheet href="libraries/widgets/nvd3/css/rNVD3.css"></link>
+<link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  <script src="libraries/widgets/nvd3/js/jquery-1.8.2.min.js"></script>
+<script src="libraries/widgets/nvd3/js/d3.v3.min.js"></script>
+<script src="libraries/widgets/nvd3/js/nv.d3.min-new.js"></script>
+<script src="libraries/widgets/nvd3/js/fisheye.js"></script>
+
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Predictive Word App</h1>
+    <h2>Coursera Data Science Capstone Project</h2>
+    <p>Hieu Duy Nguyen (Hill)<br/>27th May 2016</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Overview of a Predictive Word App</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><ol>
+<li> Two objectives: </li>
+    <ul>
+        <li> Predict which word the user is typing now.  </li>
+        <li> Predict which word the user wants to type next.  </li>
+    </ul>
+<li> Our approach: n-grams and weighted back-off model 
+    <ul>
+        <li> Given a corpus (from SwiftKey), we extract three datasets from 30k randomly selected tweets, 30k blog posts, and 30k news (anymore and shinyapps.io will crash):  </li>
+                <ul>
+                    <li> Unigrams: 95158 objects with their probabilities
+                    <li> Bigrams: 1001663 objects with their probabilities
+                    <li> Trigrams: 2047245 objects with their probabilities
+                </ul>
+        <li> Weighted back off model for next word prediction (problem 2): <big> \(w^i\) </big> is the word we want. Then its probability is: \(P(w^i|w^{i-1}_{i-2}) = \alpha_1 \frac{P(w^{i}_{i-2})}{P(w^{i-1}_{i-2})} + \alpha_2 \frac{P(w^{i}_{i-1})}{P(w^{i-1})} + \alpha_3 P(w^i)\)   </li>
+        <li> Weighted back off model for current word prediction (problem 1): similarly defined. </li>
+    </ul></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>The proposed scheme flowchart</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><center> <img src="PredictiveWordFlowchart.jpg" alt="PredictiveWordFlowchart" height="500" width="800"> </center></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Type in the phrase and get the prediction!</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><ol>
+<li> The app link is here: <a href="https://ngduyhieu.shinyapps.io/CapStone_ShinyApp">https://ngduyhieu.shinyapps.io/CapStone_ShinyApp</a> </li>
+<li> Example: type in &quot;I like to visit San Fran&quot; </li>
+<li> Example: type in &quot;I love you so&quot; </li></p>
+
+<p><center> <img src="MostLikelyCurrentAndNextWord.jpg" alt="CurrentAndNextWord" height="400" width="900"> </center></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <article data-timings="">
+    <div align="center"; style="margin:200px 0 0 0;">
+<font color="red"; size="13"> Thank you </font>
+</br> </br>
+<font color="blue"> Please support my world-changing :) app </font>
+</div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Overview of a Predictive Word App'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='The proposed scheme flowchart'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Type in the phrase and get the prediction!'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='NA'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
