@@ -6,16 +6,18 @@ library(plyr)
 
 loadDataFrames <- function(){
     thres <- 0
-    load('1gramsProcessedDataFrames_v2.Rdata')
+    load('1gramsProcessedDataFrames_v3.Rdata')
     df_1grm <- df_total[df_total$freq > thres,]
     
-    load('2gramsProcessedDataFrames_v2.Rdata')
+    load('2gramsProcessedDataFrames_v3.Rdata')
     df_2grm <- df_total[df_total$freq > thres,]
     
-    load('3gramsProcessedDataFrames_v2.Rdata')
+    load('3gramsProcessedDataFrames_v3.Rdata')
     df_3grm <- df_total[df_total$freq > thres,]
     
     MyList<- list("grm1"=df_1grm, "grm2"=df_2grm, "grm3"=df_3grm) 
+    #### Remove temporary variables
+    rm(df_total)
     return(MyList)
 }
 
@@ -41,6 +43,9 @@ predictNextWord <- function(tmp_txt, MyList){
     df_2grm <- MyList$grm2
     df_3grm <- MyList$grm3
     
+    #### Remove temporary variables
+    rm(MyList)
+    
     ##################################################################################
     #### Extract the trigrams and bigrams from the input phrase
     tmp_txt <- gsub("[[:punct:]]", "", tmp_txt) ## remove punctuation
@@ -53,6 +58,8 @@ predictNextWord <- function(tmp_txt, MyList){
     for_bgr <- tmp_wrd[length(tmp_wrd)]
     for_tgr <- paste(tmp_wrd[(length(tmp_wrd)-1):length(tmp_wrd)], collapse = " ")
     
+    #### Remove temporary variables
+    rm(tmp_wrd, tmp_txt)
     
     #################################################################################
     #### Results without removing stopwords
@@ -102,6 +109,9 @@ predictNextWord <- function(tmp_txt, MyList){
     wrd_total <- rbind(wrd_total, wrd_3grm, wrd_2grm, wrd_1grm)
     wrd_total <- ddply(wrd_total, .(wrd), summarize, freq = sum(freq))
     
+    #### Remove temporary variables
+    rm(wrd_3grm, wrd_2grm, wrd_1grm, df_tmp)
+    
     #### Order the words
     wrd_total <- wrd_total[order(wrd_total$freq,decreasing=TRUE),]
     
@@ -117,6 +127,9 @@ predictCurrentWord <- function(tmp_txt, MyList){
     df_2grm <- MyList$grm2
     df_3grm <- MyList$grm3
     
+    #### Remove temporary variables
+    rm(MyList)
+    
     ##################################################################################
     #### Extract the trigrams and bigrams from the input phrase
     tmp_txt <- gsub("[[:punct:]]", "", tmp_txt) ## remove punctuation
@@ -130,6 +143,8 @@ predictCurrentWord <- function(tmp_txt, MyList){
     for_tgr <- paste(tmp_wrd[(length(tmp_wrd)-1):length(tmp_wrd)], collapse = " ")
     for_qgr <- paste(tmp_wrd[(length(tmp_wrd)-2):length(tmp_wrd)], collapse = " ")
     
+    #### Remove temporary variables
+    rm(tmp_txt, tmp_wrd)
     
     #################################################################################
     #### Results without removing stopwords
@@ -184,6 +199,9 @@ predictCurrentWord <- function(tmp_txt, MyList){
     crtwrd_1grm <- crtwrd_1grm[crtwrd_1grm$freq > mean(crtwrd_1grm$freq), ]
     crt_wrd <- rbind(crt_wrd, crtwrd_3grm, crtwrd_2grm, crtwrd_1grm)
     crt_wrd <- ddply(crt_wrd, .(wrd), summarize, freq = sum(freq))
+    
+    #### Remove temporary variables
+    rm(crtwrd_3grm, crtwrd_2grm, crtwrd_1grm, df_tmp)
     
     #### Order the words
     crt_wrd <- crt_wrd[order(crt_wrd$freq,decreasing=TRUE),]

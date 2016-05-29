@@ -25,7 +25,7 @@ shinyUI(fluidPage(
             fluidRow(wellPanel(
                 h2("Input", style = "color:blue"),
                 
-                textInput(inputId="text_input", value = "I want to discuss about New Y",
+                textInput(inputId="text_input", value = "I want to discuss about the New Y",
                           label = "Please type in a phrase. 
                           The app will predict: (1) the current typing word, and (2) the next most likely word."),
                 
